@@ -1,0 +1,5 @@
+Carimbo de data/hora	Materia 1	Materia 2	Materia 3
+30/03/2023 16:12:04	Arte	Foto	Quimica Cicrana
+30/03/2023 16:18:53	Arte	Engenharia	Quimica Fulana
+30/03/2023 16:19:03	Foto	Engenharia	Engenharia Osborne
+30/03/2023 16:19:10	Arte	Engenharia	Quimica
