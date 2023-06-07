@@ -22,8 +22,18 @@ def quantas_aulas():
     aulas_e_horarios={}
     while tempo<horarios:
         aulas=input('Quantas aulas o horario '+str(tempo+1)+' tem? Responder como escrito no forms e separado por um espaco')
-        aulas_e_horarios.update({'Horario'+str(tempo+1):split(aulas)})
+        aulas_e_horarios.update({'Horario '+str(tempo+1):split(aulas)})
     return pd.DataFrame(aulas_e_horarios)
+
+def quantas_vagas(tabela):
+    lista_de_materias={}
+    for indexo,aula in tabela.iterrows():
+        vagas=input('Quantas vagas tem a aula'+aula+'? Responder em numero')
+        horario=tabela.head(indexo)
+        materia=aula
+        lista_de_materias.update({'Vagas':vagas,'Horario':horario,'Materia':aula})
+    
+    return lista_de_materias
 
 
 produto=separar(respostas)
