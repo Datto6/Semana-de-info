@@ -16,6 +16,16 @@ def separar(lista):
     return alunos
 
 
+def quantas_aulas():
+    horarios=input('Quantos horarios tem esse dia?Responder em numero')
+    tempo=0
+    aulas_e_horarios={}
+    while tempo<horarios:
+        aulas=input('Quantas aulas o horario '+str(tempo+1)+' tem? Responder como escrito no forms e separado por um espaco')
+        aulas_e_horarios.update({'Horario'+str(tempo+1):split(aulas)})
+    return pd.DataFrame(aulas_e_horarios)
+
+
 produto=separar(respostas)
 for aluno in produto:
     print(aluno.nomear())
