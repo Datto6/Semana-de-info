@@ -1,14 +1,27 @@
 import pandas as pd
-respostas= pd.read_csv('respostas.csv')
+respostas= pd.read_csv('atualizado.csv')
 class Pessoa:
     def __init__(self,informacoes):
         self.data=informacoes.loc['Carimbo de data/hora']
-        self.nome=informacoes.loc['Nome']
+        self.nome=informacoes.loc['Nome Completo']
+        self.turma=informacoes.loc['Turma']
+        self.preferencia=informacoes.loc['Preferencia 1']
+        self.segunda_op=informacoes.loc['Preferencia 2']
+        self.terceira_op=informacoes.loc['Preferencia 3']
+        self.quarta_op=informacoes.loc['Preferencia 4']
+    
     def nomear(self):
         return self.nome
-    def aulas(self):
-        return self.preferencias
-    
+    def turma(self):
+        return self.turma
+    def preferencia(self):
+        return self.preferencia
+    def segunda_op(self):
+        return self.segunda_op
+    def terceira_op(self):
+        return self.terceira_op
+    def quarta_op(self):
+        return self.quarta_op
 class Aula:
     def __init__(self,lista):
         self.horario=lista.loc['Horario']
@@ -22,37 +35,49 @@ class Aula:
     def materia():
         return self.materia
 
+
 def separar(lista):
     alunos=[]
     for indexo,fileira in lista.iterrows():
         alunos.append(Pessoa(fileira))
     return alunos
 
-
-def quantas_aulas():
-    horarios=input('Quantos horarios tem esse dia?Responder em numero')
-    tempo=0
+def numero_aulas():
+    horarios=input('Quantos horarios tem esse dia?responder em forma de numero')
+    tempos=0
     aulas_e_horarios={}
-    while tempo<horarios:
-        aulas=input('Quantas aulas o horario '+str(tempo+1)+' tem? Responder como escrito no forms e separado por um espaco')
-        aulas_e_horarios.update({'Horario '+str(tempo+1):split(aulas)})
+    while tempos< int(horarios):
+        materias=input('Liste as aulas do '+str(tempos+1)+' horario como estao no google forms, separado por um espaco')
+        tempos=tempos+1
+        aulas_e_horarios.update({'Horario'+str(tempos):materias.split()})
+
     return pd.DataFrame(aulas_e_horarios)
+
+
 
 def quantas_vagas(tabela):
     lista_de_materias={}
-    for indexo,aula in tabela.iterrows():
-        vagas=input('Quantas vagas tem a aula'+aula+'? Responder em numero')
-        horario=tabela.columns[indexo]
-        materia=aula
-        lista_de_materias.update({'Vagas':vagas,'Horario':horario,'Materia':aula})
+    for coluna in tabela:
+        vagas=[]
+        horario=[]
+        materias=[]
+        for aula in tabela[coluna]:
+            vagas.append(input('Quantas vagas tem a aula '+aula+'? Responder em numero'))
+            materias.append(aula)                                     
+            lista_de_materias.update({'Vagas':vagas,'Horario':coluna,'Materia':materias})
     
-    return lista_de_materias
+    return pd.DataFrame(lista_de_materias)
 
 def lista_de_aulas(lista_de_materias):
     aulas=[]
     for indexo,row in lista_de_materias.iterrows():
         aulas.append(Aula(row))
+    return aulas
 
-produto=separar(respostas)
-for aluno in produto:
-    print(aluno.nomear())
+material_final=quantas_vagas(numero_aulas())
+
+tabela_final=lista_de_aulas(material_final)
+
+
+for objeto in tabela_final:
+    print(objeto.vagas())
