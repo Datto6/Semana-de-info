@@ -10,32 +10,13 @@ class Pessoa:
         self.terceira_op=informacoes.loc['Preferencia 3']
         self.quarta_op=informacoes.loc['Preferencia 4']
     
-    def nomear(self):
-        return self.nome
-    def turma(self):
-        return self.turma
-    def preferencia(self):
-        return self.preferencia
-    def segunda_op(self):
-        return self.segunda_op
-    def terceira_op(self):
-        return self.terceira_op
-    def quarta_op(self):
-        return self.quarta_op
 class Aula:
     def __init__(self,lista):
         self.horario=lista.loc['Horario']
         self.vagas=lista.loc['Vagas']
         self.materia=lista.loc['Materia']
 
-    def horario():
-        return self.horario
-    def vagas():
-        return int(self.vagas)
-    def materia():
-        return self.materia
-
-
+#para retornar qualquer atributo, so botar classe.atributo
 def separar(lista):
     alunos=[]
     for indexo,fileira in lista.iterrows():
@@ -80,4 +61,4 @@ tabela_final=lista_de_aulas(material_final)
 
 
 for objeto in tabela_final:
-    print(objeto.vagas())
+    print(objeto.nome)
