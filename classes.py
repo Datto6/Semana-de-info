@@ -11,10 +11,9 @@ class Pessoa:
     
 class Aula:
     def __init__(self,lista):
-        for indexo,aula in lista.iterrows():
-            self.horario=lista.loc['Horario']
-            self.vagas=lista.loc['Vagas']
-            self.materia=lista.loc['Materia']
+        self.horario=lista.loc['Horario']
+        self.vagas=lista.loc['Vagas']
+        self.materia=lista.loc['Materia']
 
     def horario():
         return self.horario
@@ -49,6 +48,10 @@ def quantas_vagas(tabela):
     
     return lista_de_materias
 
+def lista_de_aulas(lista_de_materias):
+    aulas=[]
+    for indexo,row in lista_de_materias.iterrows():
+        aulas.append(Aula(row))
 
 produto=separar(respostas)
 for aluno in produto:
