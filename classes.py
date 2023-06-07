@@ -8,6 +8,16 @@ class Pessoa:
         return self.nome
     def aulas(self):
         return self.preferencias
+    
+class Aula:
+    def __init__(self,lista):
+        for indexo,aula in lista.iterrows()
+            self.horario=lista.loc['Horario']
+            self.vagas=lista.loc['Vagas']
+            self.materia=lista.loc['Materia']
+
+    def horario():
+        return 
 
 def separar(lista):
     alunos=[]
@@ -29,7 +39,7 @@ def quantas_vagas(tabela):
     lista_de_materias={}
     for indexo,aula in tabela.iterrows():
         vagas=input('Quantas vagas tem a aula'+aula+'? Responder em numero')
-        horario=tabela.head(indexo)
+        horario=tabela.columns[indexo]
         materia=aula
         lista_de_materias.update({'Vagas':vagas,'Horario':horario,'Materia':aula})
     
