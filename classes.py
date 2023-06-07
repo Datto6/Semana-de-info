@@ -11,13 +11,17 @@ class Pessoa:
     
 class Aula:
     def __init__(self,lista):
-        for indexo,aula in lista.iterrows()
+        for indexo,aula in lista.iterrows():
             self.horario=lista.loc['Horario']
             self.vagas=lista.loc['Vagas']
             self.materia=lista.loc['Materia']
 
     def horario():
-        return 
+        return self.horario
+    def vagas():
+        return int(self.vagas)
+    def materia():
+        return self.materia
 
 def separar(lista):
     alunos=[]
