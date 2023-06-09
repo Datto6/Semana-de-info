@@ -5,10 +5,22 @@ class Pessoa:
         self.data=informacoes.loc['Carimbo de data/hora']
         self.nome=informacoes.loc['Nome Completo']
         self.turma=informacoes.loc['Turma']
-        self.preferencia=informacoes.loc['Preferencia 1']
-        self.segunda_op=informacoes.loc['Preferencia 2']
-        self.terceira_op=informacoes.loc['Preferencia 3']
-        self.quarta_op=informacoes.loc['Preferencia 4']
+        self.preferencia=[]
+        self.segunda_op=[]
+        self.terceira_op=[]
+        self.quarta_op=[]
+        self.preferencia.append(informacoes.loc['Preferencia 1'])
+        for indexo in range(4):
+            self.preferencia.append(informacoes.loc['Preferencia 1'+'.'+str(indexo+1)])
+        self.segunda_op.append(informacoes.loc['Preferencia 2'])
+        for indexo in range(4):
+            self.segunda_op.append(informacoes.loc['Preferencia 2'+'.'+str(indexo+1)])
+        self.terceira_op.append(informacoes.loc['Preferencia 3'])
+        for indexo in range(4):
+            self.terceira_op.append(informacoes.loc['Preferencia 3'+'.'+str(indexo+1)])
+        self.quarta_op.append(informacoes.loc['Preferencia 4'])
+        for indexo in range(4):
+            self.quarta_op.append(informacoes.loc['Preferencia 4'+'.'+str(indexo+1)])
     
 class Aula:
     def __init__(self,lista):
@@ -55,10 +67,11 @@ def lista_de_aulas(lista_de_materias):
         aulas.append(Aula(row))
     return aulas
 
-material_final=quantas_vagas(numero_aulas())
+#material_final=quantas_vagas(numero_aulas())
 
-tabela_final=lista_de_aulas(material_final)
+#tabela_final=lista_de_aulas(material_final)
 
+tabela_final=separar(respostas)
 
 for objeto in tabela_final:
-    print(objeto.nome)
+    print(objeto.nome,objeto.preferencia)
