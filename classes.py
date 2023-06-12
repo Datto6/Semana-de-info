@@ -39,14 +39,21 @@ def separar(lista):
         alunos.append(Pessoa(fileira))
     return alunos
 
-def numero_aulas():
-    horarios=input('Quantos horarios tem esse dia?responder em forma de numero')
-    tempos=0
+def numero_aulas(lista_respostas):
+    horarios=int(input('Quantos horarios tem esse dia?responder em forma de numero'))
     aulas_e_horarios={}
-    while tempos< int(horarios):
-        materias=input('Liste as aulas do '+str(tempos+1)+' horario como estao no google forms, separado por um espaco')
-        tempos=tempos+1
-        aulas_e_horarios.update({'Horario'+str(tempos):materias.split()})
+    materias=[]
+    tempo=1
+    for aula in lista_respostas['Preferencia 1'].values:
+        if aula not in materias:
+            materias.append(aula)
+    aulas_e_horarios.update({'Horario'+str(tempo):materias})
+    while tempo<=horarios:
+        for aula in lista_respostas['Preferencia 1'+'.'+str(tempo)].values:
+            if aula not in materias:
+                materias.append(aula)
+        aulas_e_horarios.update({'Horario'+str(tempo):materias})
+        tempo=tempo+1
 
     return pd.DataFrame(aulas_e_horarios)
 
