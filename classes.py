@@ -9,7 +9,6 @@ class Pessoa:
         self.segunda_op=[]
         self.terceira_op=[]
         self.quarta_op=[]
-        self.aulas_definidas=[]
 
         self.preferencias.append(informacoes.loc['Preferencia 1'])
         for indexo in range(4):
@@ -48,27 +47,31 @@ def numero_aulas(lista_respostas):
     tempo=1
     for indexo,fileira in lista_respostas.iterrows():
         if fileira.loc['Preferencia 1'] not in materias:
-            materias.append(aula)
+            materias.append(fileira.loc['Preferencia 1'])
         for constante in range(3):
-            if fileira.loc['Preferencia '+str(constante+2)] not in materias:
-                materias.append(aula)
+            objeto_analisado=fileira.loc['Preferencia '+str(constante+2)]
+            if  objeto_analisado not in materias:
+                materias.append(objeto_analisado)
         if len(materias)==aulas_max:
             break
     aulas_e_horarios.update({'Horario'+str(tempo):materias})
+    materias=[]
     while tempo<=horarios:
         for indexo,fileira in lista_respostas.iterrows():
-            if fileira.loc['Preferencia 1.1'] not in materias:
-                materias.append(aula)
-            for constante in range(3):
-                if fileira.loc['Preferencia '+str(constante+2)+'.'+str(tempo)] not in materias:
-                    materias.append(aula)
+            for constante in range(4):
+                objeto_analisado=fileira.loc['Preferencia '+str(constante+1)+'.'+str(tempo)]
+                if objeto_analisado not in materias:
+                    materias.append(objeto_analisado)
             if len(materias)==aulas_max:
                 break
-        aulas_e_horarios.update({'Horario'+str(tempo):materias})
+        if tempo<horarios:
+            aulas_e_horarios.update({'Horario'+str(tempo+1):materias})
+        elif tempo==horarios:
+            aulas_e_horarios.update({'Horario'+str(tempo):materias})
         tempo=tempo+1
+        materias=[]
 
     return pd.DataFrame(aulas_e_horarios)
-
 
 def quantas_vagas(tabela):
     lista_de_materias={}
@@ -91,17 +94,18 @@ def lista_de_aulas(lista_de_materias):
 
 
 def definir_resultado(aulas,alunos):
+    itinerario_definido={}
     for pessoa in alunos:
         aula_definida=[]
         for preferencia in pessoa.preferencias:
             for itinerario in aulas:
                 if itinerario.materia==preferencia and itinerario.vagas>0:
-                    pessoa.aulas_definidas.append(preferencia)
+                    aula_definida.append(preferencia)
                     itinerario.vagas=itinerario.vagas-1
-                    
 
-    return alunos
+        itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aula_definida})
                 
-alunos=separar(respostas)
-for pessoa in alunos:
-    print(alunos[pessoa])
+#alunos=separar(respostas)
+#for pessoa in alunos:
+#    print(alunos[pessoa])
+print(numero_aulas(respostas))
