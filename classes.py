@@ -9,6 +9,7 @@ class Pessoa:
         self.segunda_op=[]
         self.terceira_op=[]
         self.quarta_op=[]
+        self.aulas_definidas=[]
 
         self.preferencias.append(informacoes.loc['Preferencia 1'])
         for indexo in range(4):
@@ -90,16 +91,16 @@ def lista_de_aulas(lista_de_materias):
 
 
 def definir_resultado(aulas,alunos):
-    itinerario_definido={}
     for pessoa in alunos:
         aula_definida=[]
         for preferencia in pessoa.preferencias:
             for itinerario in aulas:
                 if itinerario.materia==preferencia and itinerario.vagas>0:
-                    aula_definida.append(preferencia)
+                    pessoa.aulas_definidas.append(preferencia)
                     itinerario.vagas=itinerario.vagas-1
+                    
 
-        itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aula_definida})
+    return alunos
                 
 alunos=separar(respostas)
 for pessoa in alunos:
