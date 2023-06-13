@@ -55,9 +55,14 @@ def numero_aulas(lista_respostas):
             break
     aulas_e_horarios.update({'Horario'+str(tempo):materias})
     while tempo<=horarios:
-        for aula in lista_respostas['Preferencia 1'+'.'+str(tempo)].values:
-            if aula not in materias:
+        for indexo,fileira in lista_respostas.iterrows():
+            if fileira.loc['Preferencia 1.1'] not in materias:
                 materias.append(aula)
+            for constante in range(3):
+                if fileira.loc['Preferencia '+str(constante+2)+'.'+str(tempo)] not in materias:
+                    materias.append(aula)
+            if len(materias)==aulas_max:
+                break
         aulas_e_horarios.update({'Horario'+str(tempo):materias})
         tempo=tempo+1
 
