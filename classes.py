@@ -43,10 +43,16 @@ def numero_aulas(lista_respostas):
     horarios=int(input('Quantos horarios tem esse dia?responder em forma de numero'))
     aulas_e_horarios={}
     materias=[]
+    aulas_max=int(input('Quantas aulas tem por horario? Responder em forma de numero'))
     tempo=1
-    for aula in lista_respostas['Preferencia 1'].values:
-        if aula not in materias:
+    for indexo,fileira in lista_respostas.iterrows():
+        if fileira.loc['Preferencia 1'] not in materias:
             materias.append(aula)
+        for constante in range(3):
+            if fileira.loc['Preferencia '+str(constante+2)] not in materias:
+                materias.append(aula)
+        if len(materias)==aulas_max:
+            break
     aulas_e_horarios.update({'Horario'+str(tempo):materias})
     while tempo<=horarios:
         for aula in lista_respostas['Preferencia 1'+'.'+str(tempo)].values:
