@@ -95,6 +95,7 @@ def lista_de_aulas(lista_de_materias):
 
 def definir_resultado(aulas,alunos):
     itinerario_definido={}
+    max_aulas=input('Quantos horarios tem esse dia?')
     for pessoa in alunos:
         aula_definida=[]
         for preferencia in pessoa.preferencias:
@@ -102,6 +103,8 @@ def definir_resultado(aulas,alunos):
                 if itinerario.materia==preferencia and itinerario.vagas>0:
                     aula_definida.append(preferencia)
                     itinerario.vagas=itinerario.vagas-1
+                if len(aula_definida)==max_aulas:
+                    break
 
         itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aula_definida})
                 
