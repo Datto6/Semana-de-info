@@ -97,7 +97,7 @@ def lista_de_aulas(lista_de_materias):
 
 def definir_resultado(aulas,alunos):
     itinerario_definido={}
-    max_aulas=input('Quantos horarios tem esse dia?')
+    max_aulas=input('Quantos horarios tem esse dia?Desculpa por perguntar de novo kkkkk responder em numero')
     for pessoa in alunos:
         aulas_definidas=[]
         for preferencia in pessoa.preferencias:
@@ -129,12 +129,15 @@ def definir_resultado(aulas,alunos):
                         aulas.remove(licao)
                     if len(aulas_definidas)==max_aulas:
                         break
-
         itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aulas_definidas})
+    return pd.DataFrame(itinerario_definido)
                 
 #alunos=separar(respostas)
 #for pessoa in alunos:
 #    print(alunos[pessoa])
+alunos=separar(respostas)
 blip=numero_aulas(respostas)
-bleh=quantas_vagas(blip)
-print(bleh)
+tabela=quantas_vagas(blip)
+aula=lista_de_aulas(tabela)
+print(definir_resultado(aula,alunos))
+
