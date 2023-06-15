@@ -97,16 +97,38 @@ def definir_resultado(aulas,alunos):
     itinerario_definido={}
     max_aulas=input('Quantos horarios tem esse dia?')
     for pessoa in alunos:
-        aula_definida=[]
+        aulas_definidas=[]
         for preferencia in pessoa.preferencias:
             for itinerario in aulas:
                 if itinerario.materia==preferencia and itinerario.vagas>0:
-                    aula_definida.append(preferencia)
+                    aulas_definidas.append(preferencia)
                     itinerario.vagas=itinerario.vagas-1
-                if len(aula_definida)==max_aulas:
+                if itinerario.materia==preferencia and itinerario.vagas==0:
+                    aulas.remove(itinerario)
+                if len(aulas_definidas)==max_aulas:
                     break
+        if len(aulas_definidas)!=max_aulas:
+            for alternativa in pessoa.segunda_op:
+                for aula in aulas:
+                    if aula.materia==alternativa and aula.vagas>0:
+                        aulas_definidas.append(alternativa)
+                        aula.vagas=aula.vagas-1
+                    if aula.materia==alternativa and aula.vagas==0:
+                        aulas.remove(aula)
+                    if len(aulas_definidas)==max_aulas:
+                        break
+        if len(aulas_definidas)!=max_aulas:
+            for curso in pessoa.terceira_op:
+                for licao in aulas:
+                    if licao.materia==alternativa and licao.vagas>0:
+                        aulas_definidas.append(alternativa)
+                        licao.vagas=licao.vagas-1
+                    if licao.materia==alternativa and licao.vagas==0:
+                        aulas.remove(licao)
+                    if len(aulas_definidas)==max_aulas:
+                        break
 
-        itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aula_definida})
+        itinerario_definido.update({'Aluno':pessoa.nome,'Aulas':aulas_definidas})
                 
 #alunos=separar(respostas)
 #for pessoa in alunos:
