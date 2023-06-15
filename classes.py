@@ -29,7 +29,7 @@ class Pessoa:
 class Aula:
     def __init__(self,lista):
         self.horario=lista.loc['Horario']
-        self.vagas=lista.loc['Vagas']
+        self.vagas=int(lista.loc['Vagas'])
         self.materia=lista.loc['Materia']
 
 #para retornar qualquer atributo, so botar classe.atributo
@@ -48,21 +48,21 @@ def numero_aulas(lista_respostas):
     for indexo,fileira in lista_respostas.iterrows():
         if fileira.loc['Preferencia 1'] not in materias:
             materias.append(fileira.loc['Preferencia 1'])
-        for constante in range(3):
-            objeto_analisado=fileira.loc['Preferencia '+str(constante+2)]
+        for constante in range(int(aulas_max)):
+            objeto_analisado=fileira.loc['Preferencia '+str(constante+1)]
             if  objeto_analisado not in materias:
                 materias.append(objeto_analisado)
-        if len(materias)==aulas_max:
+        if len(materias)==int(aulas_max):
             break
     aulas_e_horarios.update({'Horario'+str(tempo):materias})
     materias=[]
     while tempo<=horarios:
         for indexo,fileira in lista_respostas.iterrows():
-            for constante in range(4):
+            for constante in range(int(aulas_max)):
                 objeto_analisado=fileira.loc['Preferencia '+str(constante+1)+'.'+str(tempo)]
                 if objeto_analisado not in materias:
                     materias.append(objeto_analisado)
-            if len(materias)==aulas_max:
+            if len(materias)==int(aulas_max):
                 break
         if tempo<horarios:
             aulas_e_horarios.update({'Horario'+str(tempo+1):materias})
@@ -75,14 +75,16 @@ def numero_aulas(lista_respostas):
 
 def quantas_vagas(tabela):
     lista_de_materias={}
+    vagas=[]
+    horario=[]
+    materias=[]
     for coluna in tabela:
-        vagas=[]
-        horario=[]
-        materias=[]
+        
         for aula in tabela[coluna]:
             vagas.append(input('Quantas vagas tem a aula '+aula+'? Responder em numero'))
-            materias.append(aula)                                     
-            lista_de_materias.update({'Vagas':int(vagas),'Horario':coluna,'Materia':materias})
+            materias.append(aula)
+            horario.append(coluna)                                     
+        lista_de_materias.update({'Vagas':vagas,'Horario':horario,'Materia':materias})
     
     return pd.DataFrame(lista_de_materias)
 
@@ -133,4 +135,6 @@ def definir_resultado(aulas,alunos):
 #alunos=separar(respostas)
 #for pessoa in alunos:
 #    print(alunos[pessoa])
-print(numero_aulas(respostas))
+blip=numero_aulas(respostas)
+bleh=quantas_vagas(blip)
+print(bleh)
